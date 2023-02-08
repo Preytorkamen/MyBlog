@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBlog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230207054824_002")]
-    partial class _002
+    [Migration("20230208003626_001")]
+    partial class _001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -365,7 +365,6 @@ namespace MyBlog.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("BlogUserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Content")
@@ -373,21 +372,18 @@ namespace MyBlog.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ContentType")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<byte[]>("ImageData")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<int>("ReadyStatus")
                         .HasColumnType("integer");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
@@ -533,9 +529,7 @@ namespace MyBlog.Data.Migrations
 
                     b.HasOne("MyBlog.Models.BlogUser", "BlogUser")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BlogUserId");
 
                     b.Navigation("Blog");
 

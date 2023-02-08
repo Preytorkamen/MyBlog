@@ -362,7 +362,6 @@ namespace MyBlog.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("BlogUserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Content")
@@ -370,21 +369,18 @@ namespace MyBlog.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ContentType")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<byte[]>("ImageData")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<int>("ReadyStatus")
                         .HasColumnType("integer");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
@@ -530,9 +526,7 @@ namespace MyBlog.Data.Migrations
 
                     b.HasOne("MyBlog.Models.BlogUser", "BlogUser")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BlogUserId");
 
                     b.Navigation("Blog");
 
