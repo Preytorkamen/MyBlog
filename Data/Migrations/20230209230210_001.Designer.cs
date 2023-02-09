@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBlog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230208003626_001")]
+    [Migration("20230209230210_001")]
     partial class _001
     {
         /// <inheritdoc />
@@ -302,7 +302,6 @@ namespace MyBlog.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BlogUserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Body")
@@ -316,11 +315,10 @@ namespace MyBlog.Data.Migrations
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("Moderated")
+                    b.Property<DateTime?>("Moderated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModeratedBody")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
@@ -328,7 +326,6 @@ namespace MyBlog.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("ModeratorId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("PostId")
@@ -496,15 +493,11 @@ namespace MyBlog.Data.Migrations
                 {
                     b.HasOne("MyBlog.Models.BlogUser", "BlogUser")
                         .WithMany()
-                        .HasForeignKey("BlogUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BlogUserId");
 
                     b.HasOne("MyBlog.Models.BlogUser", "Moderator")
                         .WithMany()
-                        .HasForeignKey("ModeratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ModeratorId");
 
                     b.HasOne("MyBlog.Models.Post", "Post")
                         .WithMany("Comments")
